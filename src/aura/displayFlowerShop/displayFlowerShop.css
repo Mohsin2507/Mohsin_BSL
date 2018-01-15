@@ -1,0 +1,23 @@
+.THIS {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    background-color:#fff !important;
+}
+
+.THIS li {
+    border-bottom: solid 1px #DDDDDD;
+    padding: 8px;
+}
+
+.THIS p {
+    margin: 4px;
+}
+.THIS .spinnerDoInit .spinnerIcon{display:none;}
+.THIS .spinnerDoInit.spinner .spinnerIcon{position:fixed; right: 0; left:0; top: 0; bottom:0; width: 50px; height: 20px; margin:auto;  display:block; z-index:999; }
+.THIS .spinnerDoInit.spinner .slds-backdrop{opacity: 0.2; visibility: visible; transition: opacity 0.4s linear;}
+.THIS .spinnerItem .uiInput--input.input{padding-left:2rem;}
+.THIS .spinnerItem .spinnerIcon{display:none;}
+.THIS .spinnerItem.spinner .spinnerIcon{position:absolute; left: 10px; top: 5px; width: 18px; height:18px;  display:block; }
+.THIS .spinnerItem.spinner .slds-input__icon{display:none;}
+.THIS .slds-table td, .THIS .slds-table th{white-space:normal;}

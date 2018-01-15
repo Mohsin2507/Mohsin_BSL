@@ -1,0 +1,80 @@
+<aura:component controller="flowerShowController" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+    <aura:attribute name="flowers" type="Flower__c[]" />
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    <aura:attribute name="statusLOv" type="String[]"/>
+    <aura:attribute name="optionStatus" type="String"/>    
+    <aura:attribute name="pageSize" type="Integer" default="9"/>
+    <aura:attribute name="pageStart" type="Integer" default="0"/>
+    <aura:attribute name="offset" type="integer"/>
+    <aura:attribute name="next" type="boolean" />
+    <aura:attribute name="prev" type="boolean" />
+    <aura:attribute name="myval" default="30" type="String"/>
+    <aura:attribute name="selectedItem" type="String" default="Changed Text would be displayed here"/>
+    
+    <style>
+        .gridThumb img{width:180px !important; height:180px !important;}
+    </style>
+    
+    <div class="slds-grid slds-wrap" style="padding-top:10px;">
+        <div class="slds-col--padded slds-size--9-of-12">
+            <div class="slds-grid slds-wrap gridThumb">
+                <aura:iteration items="{!v.flowers}" var="flower" indexVar="i">
+                    <div class="slds-p-horizontal--small slds-size--4-of-12">
+                        <lightning:button onclick="{!c.itemSelected }" name="{!flower.Id}" label="test" aura:id="test">
+                            <span>
+                                <ui:outputRichText value="{!flower.Image_Name__c}" aura:id="text"/>
+                            </span>
+                        </lightning:button>
+                        <span style="margin-right:5px; display:inline-block;">{!flower.Name}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <span style="margin-right:5px; display:inline-block;">Price:</span>
+                        <span style="margin-right:5px; display:inline-block;"><ui:outputCurrency value="{!flower.Price__c}"/>
+                        </span>
+                    </div>
+                </aura:iteration>                
+            </div>
+            <div class="slds-col--padded slds-size--12-of-12" style="clear:both;">
+                <div class="slds-grid slds-wrap">
+                    <div class="slds-col" style="text-align:center;">	
+                        <ui:button press="{!c.Previous}" disabled="{!lessthan(sub(v.pageStart, v.pageSize), 0)}">
+                            <span>Previous</span>
+                        </ui:button>
+                        <ui:button press="{!c.Next}" disabled="{!lessthan(v.flowers.length, v.pageSize)}">
+                            <span>Next</span>
+                        </ui:button>
+                    </div>
+                </div>
+                <br/><br/>
+            </div>
+        </div>
+        <div class="slds-p-horizontal--small slds-size--3-of-12">
+            <br/>
+            <div aura:id="searchType" class="slds-form-element__control slds-input-has-icon slds-input-has-icon_left slds-m-bottom--medium spinnerItem">
+                <ui:inputText label="Search By Name" class="slds-input" aura:id="ServiceTypeInput" value="" updateOn="keyup" keyup="{!c.searchKeyChangeAll}" placeholder=" Search for..."/>
+                <i class="spinnerIcon" ><img src="/resource/SLDS2016/assets/images/spinners/slds_spinner_brand.gif" /></i>
+            </div>
+            <br/>
+            <div aura:id="searchStatus" class="slds-form-element__control slds-input-has-icon slds-input-has-icon_left slds-m-bottom--medium spinnerItem">
+                <ui:inputSelect label="Color Family" class="slds-select" aura:id="optionStatusId"  value="{!v.optionStatus}" change="{!c.searchKeyChangeAll}">
+                    <ui:inputSelectOption text="--None--"/>
+                    <ui:inputSelectOption text="Blue"/>
+                    <ui:inputSelectOption text="Purple"/>
+                    <ui:inputSelectOption text="Red"/>
+                    <ui:inputSelectOption text="Pink"/>
+                    <ui:inputSelectOption text="White"/>
+                    <ui:inputSelectOption text="Orange"/>
+                    <ui:inputSelectOption text="Yellow"/>                                                   
+                </ui:inputSelect>
+            </div>
+            <br/>
+            <br/>
+            <div aura:id="sliderType" class="slds-form-element__control slds-input-has-icon slds-input-has-icon_left slds-m-bottom--medium spinnerItem">
+                
+                <lightning:slider aura:id="sliderID" label="Price" step="10" value="{!v.myval}" onchange="{!c.searchKeyChangeAll }"/>
+            </div>
+            <br/><br/><br/>
+            <div aura:id="childCmp" class="slds-form-element__control slds-input-has-icon slds-input-has-icon_left slds-m-bottom--medium spinnerItem">
+                <c:detailCmp />
+            </div>
+        </div>
+     </div>
+</aura:component>

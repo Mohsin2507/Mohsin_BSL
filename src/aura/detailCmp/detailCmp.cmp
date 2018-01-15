@@ -1,0 +1,15 @@
+<aura:component controller="flowerShowController" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+    <aura:attribute name="flower" type="Flower__c" />
+    <aura:handler event="c:FlowerSelected" action="{!c.flowerSelected}"/>
+    
+    <aura:if isTrue="{!v.flower}">
+        <div style="border:solid">
+            <b>Flower Description:</b> <br/>
+            <ui:outputText title="Description" value="{!v.flower.Description__c}" />
+            <br/><br/>
+            <b>Quantity: </b>&nbsp;&nbsp;
+            <ui:outputText title="Quantity" value="{!v.flower.Quantity__c}" />
+            <br/><br/>
+        </div>
+    </aura:if>
+</aura:component>
